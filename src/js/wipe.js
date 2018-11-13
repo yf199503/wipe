@@ -32,7 +32,7 @@ function drawMask(context){
 	context.fillRect(0,0,_w,_h);
 	context.globalCompositeOperation = "destination-out";
 }
-//在画布上画半径为30的圆
+/*//在画布上画半径为30的圆
 function draePoint(context,pisX,pisY){
 	//保存当前绘图状态
 	context.save();
@@ -55,7 +55,8 @@ function drawLine(context,x1,y1,x2,y2){
 	context.stroke();
 	//回复原有绘图状态
 	context.restore();
-}
+}*/
+//使用单个函数代替画点和画线
 function drawT(content,x1,y1,x2,y2){
 	if(arguments.length===3){
 		//调用的是画点功能
