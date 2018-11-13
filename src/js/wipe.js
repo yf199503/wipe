@@ -6,6 +6,26 @@ var moveX = 0;
 var moveY = 0;
 var isMouseDown = false;//表示鼠标的状态，是否按下，默认为未按下false，按下true
 
+//device保存设备类型，如果是移动端则为true，PC端为false
+var device = (/android|webos|iPhone|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()));
+console.log(navigator.userAgent);
+
+var clickEvtName = device ? "touchstart" : "mousedown";
+var moveEvtName = device ? "touchmove" : "mousemove";
+var endEvtName = device ? "touchend" : "mouseup";
+
+/*var fn1;
+var fn2;
+var fn3;
+if(device){
+	fn1 = "touchstart";
+	fn2 = "touchmove";
+	fn3 = "touchend";
+}else{
+	fn1 = "mousedown";
+	fn2 = "mousemove";
+	fn3 = "mouseup";
+}*/
 //生成画布上的遮罩，默认颜色#666
 function drawMask(context){
 	context.fillStyle="#666";
@@ -23,6 +43,7 @@ function draePoint(context,pisX,pisY){
 	context.restore();
 }
 function drawLine(context,x1,y1,x2,y2){
+	console.log("传递的实参个数:"+ arguments.length);
 	//保存当前绘图状态
 	context.save();
 	context.lineCap = "round";
@@ -35,32 +56,56 @@ function drawLine(context,x1,y1,x2,y2){
 	//回复原有绘图状态
 	context.restore();
 }
+
+/*function drawLine(context,moveX,moveY,X,Y){
+	context.save();
+	context.beginPath();
+	if(arguments.length==3){
+		context.arc(moveX,moveY,radius,0,2*Math.PI);
+		context.fillStyle = "rgb(242,103,91)";
+		context.fill();
+	}else if(arguments.length==5){
+		// console.log("传递的实参个数:"+ arguments.length);
+		//保存当前绘图状态
+		context.lineCap = "round";
+		//以原点为起点，绘制一条线
+		context.moveTo(moveX,moveY);
+		context.lineTo(X,Y);
+		context.lineWidth = radius*2;
+	}else{
+		return false;
+	}
+	context.stroke();
+	context.restore();
+}*/
 //在canvas画布上监听自定义时间"mousedown",调用drawPoint函数
-canvas.addEventListener("mousedown",function(evt){
+canvas.addEventListener(clickEvtName,function(evt){
 	var event = evt || window.event;
 	//获取鼠标在视口的坐标，传递参数到drawPoint
-	moveX = event.clientX;
-	moveY = event.clientY;
+	moveX = device ? event.touches[0].clientX : event.clientX;
+	moveY = device ? event.touches[0].clientY : event.clientY;
 	draePoint(context,moveX,moveY);
 	isMouseDown = true;
 },false);
 
+
+
 //增加监听"mousemove",调用drawPoint函数
-canvas.addEventListener("mousemove",function(evt){
+canvas.addEventListener(moveEvtName,function(evt){
 	//判断，当isMouseDown为true时，才能执行下面的操作
 	if(isMouseDown){
 		var event = evt || window.event;
-		var X = event.clientX;
-		var Y = event.clientY;
+			event.preventDefault();
+			var X = device ? event.touches[0].clientX : event.clientX;
+			var Y = device ? event.touches[0].clientY : event.clientY;
 		drawLine(context,moveX,moveY,X,Y);
 		//每次的结束点变成下一次画线的开始点
 		moveX = X;
 		moveY = Y;
-	}else{
-		return false;
 	}
 },false);
-canvas.addEventListener("mouseup",function(){
+
+canvas.addEventListener(endEvtName,function(){
 	//清空变量t
 	t = 0;
 	//还原isMouseDown 为false
@@ -69,6 +114,7 @@ canvas.addEventListener("mouseup",function(){
 		grawClear(context);
 	}
 },false);
+
 
 var t=0;
 function getTransparency(context){
