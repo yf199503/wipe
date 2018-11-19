@@ -12,15 +12,62 @@
 			padding: 0;
 		}
 		#cas{
+			margin: 30px;
 			border: 1px solid #000;
 			background: url(image/wipe1.jpg) center 0 no-repeat;
 			background-size: cover;
 		}
+		#cas1{
+			margin: 30px;
+		}
 	</style>
 </head>
 <body>
-	<canvas id="cas" width="375" height="667"></canvas>
+	<div class="parcent">
+		<canvas id="cas" width="375" height="667"></canvas>
+		<canvas id="cas1" width="375" height="667"></canvas>
+	</div>
+
 </body>
 </html>
-<script type="text/javascript" src="js/wipe-1.0.0.min.js"></script>
 <script type="text/javascript" src="js/wipe.js"></script>
+<script>
+	var wipeConfig = {
+		id:"cas",
+		coverType:"image",//取值类型color，image
+		color:"#fff66",
+		imgUrl:"image/wipe2.jpg",//前面的覆盖图
+		backImgUrl:"image/wipe1.jpg",//背景图片
+		width:"375",	//canvas宽
+		height:"667",	//canvas高
+		radius:"20",	//涂抹笔的半径
+		transpercent:50,
+		callback:wipedCallback//用户自定义回调函数名称
+	}
+	var cas01 = new Wipe(wipeConfig);
+	function wipedCallback(parcent){
+		if(parcent > 50){
+			console.log("透明面积超过50%，显示底画");
+		}
+
+	}
+	var wipeConfig1 = {
+		id:"cas1",
+		coverType:"image",//取值类型color，image
+		color:"",
+		imgUrl:"image/wipe1.jpg",//前面的覆盖图
+		backImgUrl:"image/wipe2.jpg",//背景图片
+		width:"375",	//canvas宽
+		height:"667",	//canvas高
+		radius:"20",	//涂抹笔的半径
+		transpercent:50,
+		callback:wipedCallback1//用户自定义回调函数名称
+	}
+	var cas02 = new Wipe(wipeConfig1);
+	function wipedCallback1(parcent){
+		if(parcent > 50){
+			console.log("透明面积超过50%，显示底画");
+		}
+
+	}
+</script>
