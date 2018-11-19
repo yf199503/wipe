@@ -1,6 +1,6 @@
 {
   "name": "BuildUpFromNothing-wipe",
-  "version": "1.0.1",
+  "version": "3.0.0",
   "devDependencies": {
     "grunt": "^1.0.3",
     "grunt-contrib-clean": "^2.0.0",
