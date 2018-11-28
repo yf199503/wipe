@@ -16,6 +16,9 @@
 			border: 1px solid #000;
 			background: url(image/wipe1.jpg) center 0 no-repeat;
 			background-size: cover;
+			position: absolute;
+			left: 100px;
+			top: 50px;
 		}
 		#cas1{
 			margin: 30px;
@@ -23,29 +26,20 @@
 	</style>
 </head>
 <body>
-<<<<<<< HEAD
-	<canvas id="cas" width="375" height="667"></canvas>
-	<span>在主分支上面的修改</span>
-	<div>在yf03分支上的修改</div>
-
-</body>
-</html>
-<script type="text/javascript" src="js/wipe-1.0.1.min.js"></script>
-<script type="text/javascript" src="js/wipe.js"></script>
-=======
 	<div class="parcent">
 		<canvas id="cas" width="375" height="667"></canvas>
-		<canvas id="cas1" width="375" height="667"></canvas>
-	</div>
+		<!-- <canvas id="cas1" width="375" height="667"></canvas> -->
 
+	</div>
 </body>
 </html>
+<!-- <script type="text/javascript" src="js/wipe-1.0.1.min.js"></script> -->
 <script type="text/javascript" src="js/wipe.js"></script>
 <script>
 	var wipeConfig = {
 		id:"cas",
 		coverType:"image",//取值类型color，image
-		color:"#fff66",
+		color:"#eee",
 		imgUrl:"image/wipe2.jpg",//前面的覆盖图
 		backImgUrl:"image/wipe1.jpg",//背景图片
 		width:"375",	//canvas宽
@@ -61,7 +55,7 @@
 		}
 
 	}
-	var wipeConfig1 = {
+	/*var wipeConfig1 = {
 		id:"cas1",
 		coverType:"image",//取值类型color，image
 		color:"",
@@ -79,6 +73,6 @@
 			console.log("透明面积超过50%，显示底画");
 		}
 
-	}
+	}*/
 </script>
->>>>>>> test01
+

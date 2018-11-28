@@ -147,13 +147,16 @@ Wipe.prototype.click = function(){
 
 		//还原isMouseDown 为false
 		that.isMouseDown = false;
+		setTimeout(function(){
+			//借用外部的处理函数
+			var percent = that.getTransparency(that.context);
+			that.callback.call(window,percent);
+			if(percent>that.transpercent){
+				that.grawClear();
+			}
+		},500);
 
-		//借用外部的处理函数
-		var percent = that.getTransparency(that.context);
-		that.callback.call(window,percent);
-		if(percent>that.transpercent){
-			that.grawClear();
-		}
+
 	},false);
 }
 
